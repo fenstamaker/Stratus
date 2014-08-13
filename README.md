@@ -6,8 +6,10 @@ Prototype content editor using ReactJS
 Install
 -------
 
-Requirements: Node.js, npm
+Requirements: 
+    * `node`
+    * `npm`
 
 To Install:
-1. `npm install`
-2. `grunt init`
+    1. `npm install`
+    2. `grunt init`
