@@ -6,7 +6,7 @@ requirejs.config({
     }
 });
 
-requirejs(['react', 'immutable', 'stratus'], function(react) {
+requirejs(['stratus'], function(Stratus) {
     Stratus.init();
     Stratus.render();
 });

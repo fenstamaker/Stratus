@@ -1,6 +1,6 @@
 'use strict';
 
-requirejs('', function() {
+define('Stratus', ['Paragraph'], function(Paragraph) {
     var app = app || {};
 
     var Stratus = {
