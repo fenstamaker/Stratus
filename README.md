@@ -6,9 +6,7 @@ Prototype content editor using ReactJS
 Install
 -------
 
-Requirements: 
-    - `node`
-    - `npm`
+You'll need Node and NPM installed to build Stratus.
 
 To Install:
     1. `npm install`
