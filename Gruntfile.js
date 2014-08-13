@@ -1,9 +1,6 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        watch: {
-
-        },
         uglify: {
           options: {
             banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -12,11 +9,20 @@ module.exports = function(grunt) {
             src: 'src/<%= pkg.name %>.js',
             dest: 'build/<%= pkg.name %>.min.js'
           }
+        },
+        shell: {
+            bower: {
+                command: 'node_modules/.bin/bower install',
+                options: {
+                    stdout: true
+                }
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-shell');
 
-    grunt.registerTask('default', ['uglify']);
+    grunt.registerTask('build', ['uglify']);
+    grunt.registerTask('init', ['shell:bower']);
 }
