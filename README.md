@@ -7,8 +7,8 @@ Install
 -------
 
 Requirements: 
-    * `node`
-    * `npm`
+    - `node`
+    - `npm`
 
 To Install:
     1. `npm install`
