@@ -1,10 +1,9 @@
-/*! Stratus 2014-08-13 */
-requirejs.config({baseUrl:"src",paths:{react:"../bower_components/react/react.min.js",jsx:"../bower_components/react/JSXTransformer.js",immutable:"../node_modules/immutable/dist/Immutable.js"}}),requirejs(["react","immutable"],function(){});
+'use strict';
+// Source: src/app.js
 /*
  * Stratus Init App
  */
-'use strict';
-
+// Source: src/stratus.js
 (function(Paragraph) {
     return function() {
         var app = app || {};
