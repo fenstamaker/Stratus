@@ -5,10 +5,19 @@ module.exports = function(grunt) {
         react: {
             files: {
                 expand: true,
-                cwd: 'src/components',
-                src: ['*.jsx'],
+                cwd: 'src',
+                src: ['**/*.jsx'],
                 dest: 'build',
                 ext: '.js'
+            }
+        },
+        watch: {
+            scripts: {
+                files: ['src/**/*.jsx'],
+                tasks: ['clean', 'react', 'concat', 'copy'],
+                options: {
+                    interrupt: true
+                }
             }
         },
         concat: {
@@ -21,37 +30,39 @@ module.exports = function(grunt) {
                             src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
                     }
                 },
-                src: ['build/*.js', 'src/*.js'],
-                dest: 'build/<%= pkg.name %>.<%= pkg.version %>.js'
+                src: ['build/**/*.js', 'src/**/*.js'],
+                dest: 'build/stratus.<%= pkg.version %>.js'
             },
             css: {
                 src: 'assets/css/*.css',
-                dest: 'build/.<%= pkg.version %>.css'
+                dest: 'build/stratus.<%= pkg.version %>.css'
             }
         },
         copy: {
             main: {
-                file: [
+                files: [
                     {
                         expand: true,
-                        src: 'build/<%= pkg.name %>.<%= pkg.version %>.js',
-                        dest: 'target/'
-                    },
+                        src: 'build/stratus.<%= pkg.version %>.js',
+                        dest: 'dist/',
+                        flatten: true                    },
+
                     {
                         expand: true,
-                        src: 'build/<%= pkg.name %>.<%= pkg.version %>.css',
-                        dest: 'target/'
+                        src: 'build/stratus.<%= pkg.version %>.css',
+                        dest: 'dist/',
+                        flatten: true
                     }
                 ]
             }
         },
         uglify: {
           options: {
-            banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+            banner: '/*! stratus <%= grunt.template.today("yyyy-mm-dd") %> */\n'
           },
           build: {
-            src: 'build/<%= pkg.name %>.<%= pkg.version %>.js',
-            dest: 'dist/<%= pkg.name %>.<%= pkg.version %>.min.js'
+            src: 'build/stratus.<%= pkg.version %>.js',
+            dest: 'dist/stratus.<%= pkg.version %>.min.js'
           }
         },
         shell: {
@@ -69,6 +80,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-react');
     grunt.loadNpmTasks('grunt-shell');
 

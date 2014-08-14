@@ -2,7 +2,7 @@
   "name": "Stratus",
   "version": "0.1.0",
   "description": "A prototype content editor based on ReactJS\"",
-  "main": "src/stratus.js",
+  "main": "src/stratus.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

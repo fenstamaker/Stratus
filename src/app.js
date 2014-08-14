@@ -1,3 +1,0 @@
-/*
- * Stratus Init App
- */
