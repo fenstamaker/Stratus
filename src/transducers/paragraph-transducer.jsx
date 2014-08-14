@@ -1,8 +1,11 @@
 /** @jsx React.DOM */
 'use strict';
 
-var ParagraphTransducer = (function(ParagraphReducer) {
+var ParagraphTransducer = (function(Thread, ParagraphReducer) {
     return function(input) {
-        return 0;
+        return Thread(input, [
+            ParagraphReducer.save(),
+            ParagraphReducer.emit()
+        ]);
     };
-})(ParagraphReducer);
+})(Thread, ParagraphReducer);

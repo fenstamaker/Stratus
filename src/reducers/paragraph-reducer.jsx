@@ -3,11 +3,11 @@
 
 var ParagraphReducer = (function() {
     return {
-        save: function() {
-            return 0;
+        save: function(input) {
+            return input;
         },
-        emit: function() {
-            return 0;
+        emit: function(input) {
+            return input;
         }
     }
 })();

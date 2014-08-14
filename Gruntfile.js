@@ -8,7 +8,7 @@ module.exports = function(grunt) {
                 cwd: 'src',
                 src: ['**/*.jsx'],
                 dest: 'build',
-                ext: '.js'
+                ext: '.jsx.js'
             }
         },
         watch: {
@@ -30,7 +30,7 @@ module.exports = function(grunt) {
                             src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
                     }
                 },
-                src: ['build/**/*.js', 'src/**/*.js'],
+                src: ['src/macros/**/*.js', 'src/**/*.js', 'build/reducers/**/*.jsx.js', 'build/transducers/**/*.jsx.js', 'build/components/**/*.jsx.js', 'build/stratus.jsx.js'],
                 dest: 'build/stratus.<%= pkg.version %>.js'
             },
             css: {
