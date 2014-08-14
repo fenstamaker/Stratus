@@ -1,7 +1,6 @@
 {
   "name": "Stratus",
   "dependencies": {
-    "react": "~0.11.1",
-    "requirejs": "~2.1.14"
+    "react": "~0.11.1"
   }
 }

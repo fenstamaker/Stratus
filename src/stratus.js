@@ -1,14 +1,17 @@
 'use strict';
 
-define('Stratus', ['Paragraph'], function(Paragraph) {
-    var app = app || {};
+(function(Paragraph) {
+    return function() {
+        var app = app || {};
 
-    var Stratus = {
-        init: function() {
+        var Stratus = {
+            init: function() {
 
-        },
-        render: function() {
+            },
+            render: function() {
 
-        }
+            }
+        };
     };
-});
+})(Paragraph);
+

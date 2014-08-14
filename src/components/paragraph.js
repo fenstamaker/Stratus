@@ -1,11 +1,10 @@
 "use strict";
 
-define('Paragraph', ['react', 'immutable'], function(React, Immutable) {
+var Paragraph = (function(React) {
     return React.createClass({
-        getInitialState: function() {
-            return {
-                editing: false
-            };
+        render: function() {
+            React.DOM.p;
         }
-    })
-});
+    });
+}(React));
+    

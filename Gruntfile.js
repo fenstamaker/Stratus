@@ -1,13 +1,32 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        react: {
+            files: {
+                expand: true,
+                cwd: 'src/components',
+                src: ['*.jsx'],
+                dest: 'build',
+                ext: '.js'
+            }
+        },
+        concat: {
+            js: {
+                src: ['build/*.js', 'src/*.js'],
+                dest: 'dist/<%= pkg.name %>.js'
+            },
+            css: {
+                src: 'assets/css/*.css',
+                dest: 'dist/<%= pkg.name %>.css'
+            }
+        },
         uglify: {
           options: {
             banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
           },
           build: {
-            src: 'src/<%= pkg.name %>.js',
-            dest: 'build/<%= pkg.name %>.min.js'
+            src: 'dist/<%= pkg.name %>.js',
+            dest: 'dist/<%= pkg.name %>.min.js'
           }
         },
         shell: {
@@ -19,10 +38,13 @@ module.exports = function(grunt) {
             }
         }
     });
-
+    
+//    grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-react');
     grunt.loadNpmTasks('grunt-shell');
 
-    grunt.registerTask('build', ['uglify']);
+    grunt.registerTask('build', ['react', 'concat', 'uglify']);
     grunt.registerTask('init', ['shell:bower']);
-}
+};
