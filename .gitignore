@@ -9,4 +9,3 @@ bower_components
 *.sublime*
 build/
 target/
-dist/
