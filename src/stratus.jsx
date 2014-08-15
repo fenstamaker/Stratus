@@ -1,8 +1,7 @@
 /** @jsx React.DOM */
 'use strict';
 
-var p = React.renderComponent(<EditableParagraph />, document.getElementById('container'));
-
 setInterval(function() {
-    p.setState({date: new Date()});
+    var p = React.renderComponent(<Paragraph text="Initial State" date={new Date()} />, document.getElementById('container'));
 }, 500);
+ 

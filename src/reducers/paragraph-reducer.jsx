@@ -1,5 +1,4 @@
 /** @jsx React.DOM */
-'use strict';
 
 var ParagraphReducer = (function() {
     return {

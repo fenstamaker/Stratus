@@ -3,6 +3,12 @@ Stratus
 
 Prototype content editor using ReactJS
 
+Philosophy
+-------
+
+Stratus is a content editor that eschews the popular monolithic structure of content for a new, innovative pattern of 
+small composable components. 
+
 Install
 -------
 

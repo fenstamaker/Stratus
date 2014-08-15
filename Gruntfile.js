@@ -7,14 +7,27 @@ module.exports = function(grunt) {
                 expand: true,
                 cwd: 'src',
                 src: ['**/*.jsx'],
-                dest: 'build',
-                ext: '.jsx.js'
+                dest: 'build/es6',
+                ext: '.js'
+            }
+        },
+        traceur: {
+            options: {
+                experimental: true
+            },
+            custom: {
+                files: [{
+                    expand: true,
+                    cwd: 'build/es6',
+                    src: ['**/*.js'],
+                    dest: 'build/es5'
+                }]
             }
         },
         watch: {
             scripts: {
                 files: ['src/**/*.jsx'],
-                tasks: ['clean', 'react', 'concat', 'copy'],
+                tasks: ['clean', 'react', 'traceur', 'concat', 'copy'],
                 options: {
                     interrupt: true
                 }
@@ -30,7 +43,7 @@ module.exports = function(grunt) {
                             src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
                     }
                 },
-                src: ['src/macros/**/*.js', 'src/**/*.js', 'build/reducers/**/*.jsx.js', 'build/transducers/**/*.jsx.js', 'build/components/**/*.jsx.js', 'build/stratus.jsx.js'],
+                src: ['build/es5/reducers/**/*.js', 'build/es5/transducers/**/*.js', 'build/es5/components/**/*.js', 'build/es5/stratus.js'],
                 dest: 'build/stratus.<%= pkg.version %>.js'
             },
             css: {
@@ -75,15 +88,16 @@ module.exports = function(grunt) {
         }
     });
     
-//    grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-traceur');
     grunt.loadNpmTasks('grunt-react');
     grunt.loadNpmTasks('grunt-shell');
 
-    grunt.registerTask('build', ['clean', 'react', 'concat', 'copy', 'uglify']);
+    grunt.registerTask('build', ['clean', 'react', 'traceur', 'concat', 'copy']);
     grunt.registerTask('init', ['shell:bower']);
 };
