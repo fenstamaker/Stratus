@@ -43,7 +43,13 @@ module.exports = function(grunt) {
                             src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1');
                     }
                 },
-                src: ['build/es5/reducers/**/*.js', 'build/es5/transducers/**/*.js', 'build/es5/components/**/*.js', 'build/es5/stratus.js'],
+                src: [
+                'build/es5/macros/**/*.js', 
+                'build/es5/components/paragraph.js', 
+                'build/es5/components/article.js', 
+                'build/es5/reducers/**/*.js', 
+                'build/es5/transducers/**/*.js',
+                'build/es5/stratus.js'],
                 dest: 'build/stratus.<%= pkg.version %>.js'
             },
             css: {
