@@ -13,7 +13,8 @@ module.exports = function(grunt) {
         },
         traceur: {
             options: {
-                experimental: true
+                experimental: true,
+                sourceMaps: true
             },
             custom: {
                 files: [{
@@ -24,10 +25,21 @@ module.exports = function(grunt) {
                 }]
             }
         },
+        browserify: {
+            options: {
+                bundleOptions: {
+                    debug: true
+                }
+            },
+            app: {
+                src: 'build/es5/stratus.js',
+                dest: 'dist/stratus.<%= pkg.version %>.js'
+            }
+        },
         watch: {
             scripts: {
                 files: ['src/**/*.jsx'],
-                tasks: ['clean', 'react', 'traceur', 'concat', 'copy'],
+                tasks: ['clean', 'react', 'traceur', 'browserify', 'copy'],
                 options: {
                     interrupt: true
                 }
@@ -47,8 +59,8 @@ module.exports = function(grunt) {
                 'build/es5/macros/**/*.js', 
                 'build/es5/components/paragraph.js', 
                 'build/es5/components/article.js', 
-                'build/es5/reducers/**/*.js', 
-                'build/es5/transducers/**/*.js',
+                'build/es5/consumers/**/*.js', 
+                'build/es5/dispatchers/**/*.js',
                 'build/es5/stratus.js'],
                 dest: 'build/stratus.<%= pkg.version %>.js'
             },
@@ -104,6 +116,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-react');
     grunt.loadNpmTasks('grunt-shell');
 
-    grunt.registerTask('build', ['clean', 'react', 'traceur', 'concat', 'copy']);
+    grunt.registerTask('build', ['clean', 'react', 'traceur', 'browserify', 'copy']);
     grunt.registerTask('init', ['shell:bower']);
 };

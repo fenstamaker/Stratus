@@ -1,9 +1,12 @@
 /** @jsx React.DOM */
 
-var Paragraph = (function(React) {
-    return React.createClass({
-        render: function() {
-            return <p contentEditable="true">{this.props.text}</p>;
-    }});
-})(React);
+var React = require('React');
+
+var Paragraph = React.createClass({
+    render: function() {
+        return <p>{this.props.text}</p>;
+    }
+});
+
+module.exports = Paragraph;
 
