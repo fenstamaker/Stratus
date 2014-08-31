@@ -12,6 +12,7 @@ function plus(a, b) {
     return a + b;
 }
 
-$pipe(1, 2)
-    .$first(plus, 2)
-    .$do();
+$pipe(1)
+     .$first(plus, 2)
+     .$first(plus, 3)
+     .$do();
