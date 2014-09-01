@@ -5,6 +5,9 @@ bower_components
 .bowerrc
 .idea/*
 .out/*
+.jshintrc
+.lein-*
+.#project.clj
 *.iml
 .DS_Store
 *.sublime*
