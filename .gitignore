@@ -4,6 +4,7 @@ tmp
 bower_components
 .bowerrc
 .idea/*
+.out/*
 *.iml
 .DS_Store
 *.sublime*
