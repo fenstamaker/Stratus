@@ -9,6 +9,16 @@
   (render [this]
           (dom/h1 nil (:text data))))
 
-(om/root widget {:text "Hello, world!"}
+(defcomponent paragraph [data owner]
+  (render [this]
+          (dom/p nil (:text data))))
+
+(defcomponent article [data owner]
+  (render [this]
+          (dom/div nil
+           (om/build-all paragraph
+                         (repeatedly (:number data) (constantly {:text "Hello, world!"}))))))
+  
+(om/root article {:number 5}
          {:target (. js/document (getElementById "stratus"))})
 
