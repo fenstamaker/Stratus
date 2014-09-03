@@ -16,8 +16,9 @@
 (defcomponent article [data owner]
   (render [this]
           (dom/div nil
-           (om/build-all paragraph
-                         (repeatedly (:number data) (constantly {:text "Hello, world!"}))))))
+                   (om/build-all paragraph
+                                 (repeatedly (:number data)
+                                             (constantly {:text "Hello, world!"}))))))
   
 (om/root article {:number 5}
          {:target (. js/document (getElementById "stratus"))})
