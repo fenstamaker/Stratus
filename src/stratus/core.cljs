@@ -5,9 +5,10 @@
 
 (enable-console-print!)
 
-(defcomponent widget [data owner]
+(defcomponent cursor [data owner]
+  
   (render [this]
-          (dom/h1 nil (:text data))))
+          (dom/div nil "[]")))
 
 (defcomponent paragraph [data owner]
   (render [this]
@@ -22,4 +23,4 @@
   
 (om/root article {:number 5}
          {:target (. js/document (getElementById "stratus"))})
-
+(om/root cursor {} {:target (. js/document (getElementById "cursor"))})
