@@ -10,9 +10,14 @@
   (render [this]
           (dom/div nil "[]")))
 
+(defcomponent span [data owner]
+  (render [this]
+          (dom/span nil data)))
+
 (defcomponent paragraph [data owner]
   (render [this]
-          (dom/p nil (:text data))))
+          (dom/p nil
+                 (om/build-all span (:text data)))))
 
 (defcomponent article [data owner]
   (render [this]
@@ -20,7 +25,7 @@
                    (om/build-all paragraph
                                  (repeatedly (:number data)
                                              (constantly {:text "Hello, world!"}))))))
-  
+
 (om/root article {:number 5}
          {:target (. js/document (getElementById "stratus"))})
 (om/root cursor {} {:target (. js/document (getElementById "cursor"))})
