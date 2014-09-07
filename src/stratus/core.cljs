@@ -5,10 +5,23 @@
 
 (enable-console-print!)
 
+(def app-state (atom {:number 1 :article {:text "Hello, World!"}}))
+
+(defn handle-change [e owner {:keys [text]}]
+  (swap! app-state assoc-in [:article :text] (.. e -target -value)))
+
 (defcomponent cursor [data owner]
-  
   (render [this]
           (dom/div nil "[]")))
+
+(defcomponent input [data owner]
+  (init_state [this]
+              {:text "Test"})
+  (render-state [this state]
+          (dom/input
+           {:text (:value state)
+            :on-change (fn [event] (handle-change event owner state))}
+           nil)))
 
 (defcomponent span [data owner]
   (render [this]
@@ -24,8 +37,8 @@
           (dom/div nil
                    (om/build-all paragraph
                                  (repeatedly (:number data)
-                                             (constantly {:text "Hello, world!"}))))))
+                                             (constantly (:article data)))))))
 
-(om/root article {:number 5}
+(om/root article app-state
          {:target (. js/document (getElementById "stratus"))})
-(om/root cursor {} {:target (. js/document (getElementById "cursor"))})
+(om/root input {} {:target (. js/document (getElementById "input"))})
