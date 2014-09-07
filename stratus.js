@@ -9,5 +9,4 @@ goog.addDependency("../plumbing/fnk/schema.js", ['plumbing.fnk.schema'], ['schem
 goog.addDependency("../plumbing/core.js", ['plumbing.core'], ['cljs.core', 'plumbing.fnk.schema', 'schema.utils']);
 goog.addDependency("../om/core.js", ['om.core'], ['cljs.core', 'om.dom', 'goog.ui.IdGenerator']);
 goog.addDependency("../om_tools/core.js", ['om_tools.core'], ['plumbing.core', 'cljs.core', 'om.core', 'plumbing.fnk.schema']);
-goog.addDependency("../stratus/cursor.js", ['stratus.cursor'], ['om_tools.dom', 'om_tools.core', 'cljs.core', 'om.core']);
 goog.addDependency("../stratus/core.js", ['stratus.core'], ['om_tools.dom', 'om_tools.core', 'cljs.core', 'om.core']);

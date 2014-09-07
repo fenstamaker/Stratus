@@ -8,18 +8,16 @@
 (def app-state (atom {:number 1 :article {:text "Hello, World!"}}))
 
 (defn handle-change [e owner {:keys [text]}]
-  (swap! app-state assoc-in [:article :text] (.. e -target -value)))
-
-(defcomponent cursor [data owner]
-  (render [this]
-          (dom/div nil "[]")))
+  (do
+    (swap! app-state update-in [:article :text] str (.. e -target -value))
+    (om/set-state! owner :text "")))
 
 (defcomponent input [data owner]
   (init_state [this]
-              {:text "Test"})
+              {:text ""})
   (render-state [this state]
           (dom/input
-           {:text (:value state)
+           {:value (:text state)
             :on-change (fn [event] (handle-change event owner state))}
            nil)))
 
