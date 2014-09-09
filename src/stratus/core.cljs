@@ -1,7 +1,8 @@
 (ns stratus.core
   (:require [om.core :as  om :include-macros true]
             [om-tools.dom  :as dom :include-macros true]
-            [om-tools.core :refer-macros [defcomponent]]))
+            [om-tools.core :refer-macros [defcomponent]]
+            [stratus.input :as i]))
 
 (enable-console-print!)
 
@@ -18,7 +19,8 @@
   (render-state [this state]
           (dom/input
            {:value (:text state)
-            :on-change (fn [event] (handle-change event owner state))}
+            :on-change   (fn [event] (handle-change event owner state))
+            :on-key-down (fn [event] (i/handle-special-input app-state event owner))}
            nil)))
 
 (defcomponent span [data owner]
