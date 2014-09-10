@@ -8,6 +8,7 @@
 
 (def app-state (atom {:number 1 :article [ {:text "Hello, world!"}
                                            {:text "This is a new Paragraph."} ]}))
+(def states (atom [@app-state]))
 
 (defcomponent input [data owner]
   (init_state [this]
