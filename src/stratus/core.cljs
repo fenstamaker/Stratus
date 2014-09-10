@@ -6,12 +6,8 @@
 
 (enable-console-print!)
 
-(def app-state (atom {:number 1 :article {:text "Hello, World!"}}))
-
-(defn handle-change [e owner {:keys [text]}]
-  (do
-    (swap! app-state update-in [:article :text] str (.. e -target -value))
-    (om/set-state! owner :text "")))
+(def app-state (atom {:number 1 :article [ {:text "Hello, world!"}
+                                           {:text "This is a new Paragraph."} ]}))
 
 (defcomponent input [data owner]
   (init_state [this]
@@ -19,7 +15,7 @@
   (render-state [this state]
           (dom/input
            {:value (:text state)
-            :on-change   (fn [event] (handle-change event owner state))
+            :on-change   (fn [event] (i/handle-text-input    app-state event owner))
             :on-key-down (fn [event] (i/handle-special-input app-state event owner))}
            nil)))
 
@@ -30,14 +26,15 @@
 (defcomponent paragraph [data owner]
   (render [this]
           (dom/p nil
-                 (om/build-all span (:text data)))))
+                 (om/build-all
+                  span
+                  (map #(str % " ") (clojure.string/split (:text data) #"\s"))))))
 
 (defcomponent article [data owner]
   (render [this]
           (dom/div nil
                    (om/build-all paragraph
-                                 (repeatedly (:number data)
-                                             (constantly (:article data)))))))
+                                 (:article data)))))
 
 (om/root article app-state
          {:target (. js/document (getElementById "stratus"))})
