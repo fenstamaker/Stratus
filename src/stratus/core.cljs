@@ -56,3 +56,4 @@
 (om/root input {} {:target (. js/document (getElementById "input"))})
 
 (set-input-focus)
+(.. js/document (addEventListener "click" (fn [event] (js/setTimeout set-input-focus 10))))
