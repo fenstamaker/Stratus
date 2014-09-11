@@ -10,3 +10,8 @@
   font-size: 22px;
   line-height: 30px;
 }
+
+#inputField {
+  position: absolute;
+  top: -100px;
+}

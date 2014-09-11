@@ -11,14 +11,19 @@
                                            {:tag :p  :text "This is a new Paragraph."} ]}))
 (def states (atom [@app-state]))
 
+(defn set-input-focus []
+  (.. js/document (getElementById "inputField") (focus)))
+
 (defcomponent input [data owner]
   (init_state [this]
               {:text ""})
   (render-state [this state]
           (dom/input
            {:value (:text state)
+            :id "inputField"
             :on-change   (fn [event] (i/handle-text-input    app-state event owner))
-            :on-key-down (fn [event] (i/handle-special-input app-state event owner))}
+            :on-key-down (fn [event] (i/handle-special-input app-state event owner))
+            :on-blur     (fn [event] (js/setTimeout set-input-focus 10))}
            nil)))
 
 (defcomponent span [data owner]
@@ -49,3 +54,5 @@
 (om/root article app-state
          {:target (. js/document (getElementById "stratus"))})
 (om/root input {} {:target (. js/document (getElementById "input"))})
+
+(set-input-focus)
