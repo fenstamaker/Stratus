@@ -6,8 +6,9 @@
 
 (enable-console-print!)
 
-(def app-state (atom {:number 1 :article [ {:text "Hello, world!"}
-                                           {:text "This is a new Paragraph."} ]}))
+(def app-state (atom {:number 1 :article [ {:tag :h1 :text "Welcome to Stratus"}
+                                           {:tag :p  :text "Hello, world!"}
+                                           {:tag :p  :text "This is a new Paragraph."} ]}))
 (def states (atom [@app-state]))
 
 (defcomponent input [data owner]
@@ -31,10 +32,18 @@
                   span
                   (map #(str % " ") (clojure.string/split (:text data) #"\s"))))))
 
+(defcomponent title [data owner]
+  (render [this]
+          (dom/h1 nil (:text data))))
+
+(defn determine-component [data owner]
+  (cond (= :h1 (:tag data)) (title data owner)
+        :else (paragraph data owner)))
+  
 (defcomponent article [data owner]
   (render [this]
           (dom/div nil
-                   (om/build-all paragraph
+                   (om/build-all determine-component
                                  (:article data)))))
 
 (om/root article app-state

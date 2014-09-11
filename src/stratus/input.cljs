@@ -21,13 +21,14 @@
  (reduce str (drop-last coll)))
 
 (defn backspace-event [event app-state]
-  (let [new-p (-> (:article @app-state)
-                  (last)
-                  (:text)
-                  (remove-last))]
+  (let [last-p (last (:article @app-state))
+        new-p  (-> (:article @app-state)
+                   (last)
+                   (:text)
+                   (remove-last))]
     (if (empty? new-p)
       (swap! app-state update-in [:article] (comp #(into [] %) drop-last))
-      (swap! app-state update-in [:article] replace-last {:text new-p}))))
+      (swap! app-state update-in [:article] replace-last {:tag (:tag last-p) :text new-p}))))
 
 (defn enter-event [event app-state]
   (do
@@ -42,11 +43,11 @@
    ))
 
 (defn handle-text-input [app-state event owner]
-  (let [new-p (-> (:article @app-state)
-                  (last)
-                  (:text)
-                  (str (.. event -target -value)))]
-    (swap! app-state update-in [:article] replace-last {:text new-p})
+  (let [last-p (last (:article @app-state))
+        new-p  (-> last-p
+                   (:text)
+                   (str (.. event -target -value)))]
+    (swap! app-state update-in [:article] replace-last {:tag (:tag last-p) :text new-p})
     (om/set-state! owner :text "")))
 
 

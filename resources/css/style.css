@@ -1,0 +1,12 @@
+#container {
+  width: 75%;
+  max-width: 720px;
+  margin: 50px auto;
+  font-family: 'Cardo', serif;
+}
+
+#container p {
+  margin: 22px 0;
+  font-size: 22px;
+  line-height: 30px;
+}
