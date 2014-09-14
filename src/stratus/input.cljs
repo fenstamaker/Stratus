@@ -14,6 +14,9 @@
 (defn last-index [coll]
   (- (count coll) 1))
 
+(defn maintain-focus []
+  ())
+
 (defn replace-last [coll element]
   (assoc coll (last-index coll) element))
 
