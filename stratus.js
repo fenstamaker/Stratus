@@ -10,4 +10,5 @@ goog.addDependency("../schema/core.js", ['schema.core'], ['cljs.core', 'clojure.
 goog.addDependency("../plumbing/fnk/schema.js", ['plumbing.fnk.schema'], ['schema.core', 'cljs.core', 'schema.utils']);
 goog.addDependency("../plumbing/core.js", ['plumbing.core'], ['cljs.core', 'plumbing.fnk.schema', 'schema.utils']);
 goog.addDependency("../om_tools/core.js", ['om_tools.core'], ['plumbing.core', 'cljs.core', 'om.core', 'plumbing.fnk.schema']);
-goog.addDependency("../stratus/core.js", ['stratus.core'], ['om_tools.dom', 'om_tools.core', 'cljs.core', 'om.core', 'stratus.input']);
+goog.addDependency("../stratus/components.js", ['stratus.components'], ['om_tools.dom', 'om_tools.core', 'cljs.core', 'om.core', 'stratus.input']);
+goog.addDependency("../stratus/core.js", ['stratus.core'], ['om_tools.dom', 'om_tools.core', 'cljs.core', 'om.core', 'stratus.components', 'stratus.input']);

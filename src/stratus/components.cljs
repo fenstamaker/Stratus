@@ -1,12 +1,16 @@
 (ns stratus.components
-  (:requie [om.core :as om :include-macros true]
-           [om-tools.dom :as dom :include-macros true]
-           [om-tools.core :refer-macros [defcomponent]]))
+  (:require [om.core :as om :include-macros true]
+            [om-tools.dom :as dom :include-macros true]
+            [om-tools.core :refer-macros [defcomponent]]
+            [stratus.input :as i]))
 
-(defn- determine-component [data owner]
-  (condp = (:tag data)
-    :h1 (title data owner)
-        (paragraph data owner)))
+(def app-state (atom {:number 1 :article [ {:tag :h1 :text "Welcome to Stratus"}
+                                           {:tag :p  :text "Hello, world!"}
+                                           {:tag :p  :text "This is a new Paragraph."} ]}))
+(def states (atom [@app-state]))
+
+(defn set-input-focus []
+  (.. js/document (getElementById "inputField") (focus)))
 
 (defcomponent input [data owner]
   (init_state [this]
@@ -34,6 +38,11 @@
 (defcomponent title [data owner]
   (render [this]
           (dom/h1 nil (:text data))))
+
+(defn- determine-component [data owner]
+  (condp = (:tag data)
+    :h1 (title data owner)
+        (paragraph data owner)))
 
 (defcomponent article [data owner]
   (render [this]
