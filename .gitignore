@@ -4,7 +4,6 @@ tmp
 bower_components
 .bowerrc
 .idea/*
-.out/*
 .jshintrc
 .lein-*
 .#*
