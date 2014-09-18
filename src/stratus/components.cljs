@@ -4,24 +4,16 @@
             [om-tools.core :refer-macros [defcomponent]]
             [stratus.input :as i]))
 
-(def app-state (atom {:number 1 :article [ {:tag :h1 :text "Welcome to Stratus"}
-                                           {:tag :p  :text "Hello, world!"}
-                                           {:tag :p  :text "This is a new Paragraph."} ]}))
-(def states (atom [@app-state]))
-
-(defn set-input-focus []
-  (.. js/document (getElementById "inputField") (focus)))
-
-(defcomponent input [data owner]
+(defcomponent input [{:keys [input] :as data} owner]
   (init_state [this]
               {:text ""})
   (render-state [this state]
           (dom/input
-           {:value (:text state)
-            :id "inputField"
-            :on-change   (fn [event] (i/handle-text-input    app-state event owner))
-            :on-key-down (fn [event] (i/handle-special-input app-state event owner))
-            :on-blur     (fn [event] (js/setTimeout set-input-focus 10))}
+           {:id          (:input-class input)
+            :value       (:text state)
+            :on-change   (partial (:on-change   input) app-state owner)
+            :on-key-down (partial (:on-key-down input) app-state owner)
+            :on-blur     (:on-blur input))}
            nil)))
 
 (defcomponent span [data owner]

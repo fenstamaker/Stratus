@@ -1,6 +1,6 @@
 (ns stratus.input
   (:require [om.core :as om :include-macros true]
-           [om-tools.dom :as dom :include-macros true]))
+            [om-tools.dom :as dom :include-macros true]))
 
 (defn backspace? [event]
   (= (.. event -keyCode) 8))
@@ -14,8 +14,8 @@
 (defn last-index [coll]
   (- (count coll) 1))
 
-(defn maintain-focus []
-  ())
+(defn focus [class]
+  (.. js/document (getElementById class) (focus)))
 
 (defn replace-last [coll element]
   (assoc coll (last-index coll) element))
@@ -38,14 +38,14 @@
     (. event preventDefault)
     (swap! app-state update-in [:article] conj {:text ""})))
 
-(defn handle-special-input [app-state event owner]
+(defn handle-special-input [app-state owner event]
   (cond
    (delete?    event) nil 
    (backspace? event) (backspace-event event app-state)
    (enter?     event) (enter-event event app-state)
    ))
 
-(defn handle-text-input [app-state event owner]
+(defn handle-text-input [app-state owner event]
   (let [last-p (last (:article @app-state))
         new-p  (-> last-p
                    (:text)
