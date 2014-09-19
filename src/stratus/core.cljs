@@ -1,8 +1,8 @@
 (ns stratus.core
-  (:require [om.core :as  om :include-macros true]
-            [om-tools.dom  :as dom :include-macros true]
-            [om-tools.core :refer-macros [defcomponent]])
-  (:require [stratus.components :as c]
+  (:require [om.core :as om :include-macros true]
+            [om-tools.dom :as dom :include-macros true]
+            [om-tools.core :refer-macros [defcomponent]]
+            [stratus.components :as c]
             [stratus.input :as i]))
 
 (enable-console-print!)
@@ -22,14 +22,13 @@
                                  :on-blur     reset-focus } } ))
 (def states (atom [@app-state]))
 
-(om/root c/article c/app-state
+(om/root c/article app-state
          {:target (. js/document (getElementById "stratus"))})
-(om/root c/input c/app-state
+(om/root c/input   app-state
          {:target (. js/document (getElementById "input"))})
 
-(i/focus)
+(focus "inputField")
 
 (.. js/document
     (addEventListener "click"
-                      (fn [event]
-                        )))
+                      #(reset-focus "inputField")))

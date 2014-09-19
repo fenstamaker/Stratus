@@ -8,13 +8,13 @@
   (init_state [this]
               {:text ""})
   (render-state [this state]
-          (dom/input
-           {:id          (:input-class input)
-            :value       (:text state)
-            :on-change   (partial (:on-change   input) app-state owner)
-            :on-key-down (partial (:on-key-down input) app-state owner)
-            :on-blur     (:on-blur input))}
-           nil)))
+                (dom/input
+                 {:id          (:input-class input)
+                  :value       (:text state)
+                  :on-change   (partial (:on-change   input) data owner)
+                  :on-key-down (partial (:on-key-down input) data owner)
+                  :on-blur     (:on-blur input)}
+                 nil)))
 
 (defcomponent span [data owner]
   (render [this]

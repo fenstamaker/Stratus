@@ -14,9 +14,6 @@
 (defn last-index [coll]
   (- (count coll) 1))
 
-(defn focus [class]
-  (.. js/document (getElementById class) (focus)))
-
 (defn replace-last [coll element]
   (assoc coll (last-index coll) element))
 
@@ -30,13 +27,13 @@
                    (:text)
                    (remove-last))]
     (if (empty? new-p)
-      (swap! app-state update-in [:article] (comp #(into [] %) drop-last))
-      (swap! app-state update-in [:article] replace-last {:tag (:tag last-p) :text new-p}))))
+      (om/transact! app-state [:article] (comp #(into [] %) drop-last))
+      (om/transact! app-state [:article] #(replace-last % {:tag (:tag last-p) :text new-p})))))
 
 (defn enter-event [event app-state]
   (do
     (. event preventDefault)
-    (swap! app-state update-in [:article] conj {:text ""})))
+    (om/transact! app-state [:article] #(conj % {:text ""}))))
 
 (defn handle-special-input [app-state owner event]
   (cond
@@ -50,7 +47,7 @@
         new-p  (-> last-p
                    (:text)
                    (str (.. event -target -value)))]
-    (swap! app-state update-in [:article] replace-last {:tag (:tag last-p) :text new-p})
+    (om/transact! app-state [:article] #(replace-last % {:tag (:tag last-p) :text new-p}))
     (om/set-state! owner :text "")))
 
 
