@@ -4,6 +4,23 @@
             [om-tools.core :refer-macros [defcomponent]]
             [stratus.input :as i]))
 
+(defcomponent menu [data owner]
+  (init-state [this]
+              {:items [ {:name "File"   :action nil}
+                        {:name "Edit"   :action nil}
+                        {:name "View"   :action nil}
+                        {:name "Window" :action nil}
+                        {:name "Help"   :action nil} ]})
+  (render-state [this]
+                (dom/ul {}
+                        (om/build-all
+                         li
+                         (map #(:name %) (:items data))))))
+
+(defcomponent cursor [data owner]
+  (render [this]
+          (dom/span {:id "cursor"} nil)))
+
 (defcomponent input [{:keys [input] :as data} owner]
   (init_state [this]
               {:text ""})

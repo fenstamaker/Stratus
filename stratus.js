@@ -3,8 +3,9 @@ goog.addDependency("../cljs/core.js", ['cljs.core'], ['goog.string', 'goog.objec
 goog.addDependency("../om/dom.js", ['om.dom'], ['cljs.core']);
 goog.addDependency("../clojure/string.js", ['clojure.string'], ['goog.string', 'cljs.core', 'goog.string.StringBuffer']);
 goog.addDependency("../om_tools/dom.js", ['om_tools.dom'], ['cljs.core', 'om.dom', 'clojure.string']);
+goog.addDependency("../stratus/event.js", ['stratus.event'], ['cljs.core']);
 goog.addDependency("../om/core.js", ['om.core'], ['cljs.core', 'om.dom', 'goog.ui.IdGenerator']);
-goog.addDependency("../stratus/input.js", ['stratus.input'], ['om_tools.dom', 'cljs.core', 'om.core']);
+goog.addDependency("../stratus/input.js", ['stratus.input'], ['om_tools.dom', 'cljs.core', 'stratus.event', 'om.core']);
 goog.addDependency("../schema/utils.js", ['schema.utils'], ['goog.string', 'cljs.core', 'goog.string.format']);
 goog.addDependency("../schema/core.js", ['schema.core'], ['cljs.core', 'clojure.string', 'schema.utils']);
 goog.addDependency("../plumbing/fnk/schema.js", ['plumbing.fnk.schema'], ['schema.core', 'cljs.core', 'schema.utils']);

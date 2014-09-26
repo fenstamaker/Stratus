@@ -1,15 +1,7 @@
 (ns stratus.input
   (:require [om.core :as om :include-macros true]
-            [om-tools.dom :as dom :include-macros true]))
-
-(defn backspace? [event]
-  (= (.. event -keyCode) 8))
-
-(defn delete? [event]
-  (= (.. event -keyCode) 46))
-
-(defn enter? [event]
-  (= (.. event -keyCode) 13))
+            [om-tools.dom :as dom :include-macros true]
+            [stratus.event :as e]))
 
 (defn last-index [coll]
   (- (count coll) 1))
@@ -19,6 +11,22 @@
 
 (defn remove-last [coll]
  (reduce str (drop-last coll)))
+
+(defn arrow-event [type event app-state]
+  (let [cursor (:cursor @app-state)]
+    (condp = type
+      :up    (let [row (- (:row cursor) 1)]
+               (cond (> row 0)
+                     (om/update! app-state [:cursor :row] row)))
+      :down  (let [row (+ (:row cursor) 1)]
+               (cond (< row (:number-of-lines cursor))
+                     (om/update! app-state [:cursor :row] row)))
+      :left  (let [col (- (:column cursor) 1)]
+               (cond (> col 0)
+                     (om/update! app-state [:cursor :column] col)))
+      :right (let [col (+ (:column cursor) 1)]
+               (cond (> col (:line-length 1))
+                     (om/update! app-state [:cursor :column] col))))))
 
 (defn backspace-event [event app-state]
   (let [last-p (last (:article @app-state))
@@ -37,10 +45,13 @@
 
 (defn handle-special-input [app-state owner event]
   (cond
-   (delete?    event) nil 
-   (backspace? event) (backspace-event event app-state)
-   (enter?     event) (enter-event event app-state)
-   ))
+   (e/delete?    event) nil 
+   (e/backspace? event) (backspace-event event app-state)
+   (e/enter?     event) (enter-event event app-state)
+   (e/down?      event) (arrow-event :down  event app-state)
+   (e/up?        event) (arrow-event :up    event app-state)
+   (e/left?      event) (arrow-event :left  event app-state)
+   (e/right?     event) (arrow-event :right event app-state)))
 
 (defn handle-text-input [app-state owner event]
   (let [last-p (last (:article @app-state))

@@ -3,15 +3,10 @@
             [om-tools.dom :as dom :include-macros true]
             [om-tools.core :refer-macros [defcomponent]]
             [stratus.components :as c]
-            [stratus.input :as i]))
+            [stratus.input :as i]
+            [stratus.utility :as u]))
 
 (enable-console-print!)
-
-(defn focus [class]
-  (.. js/document (getElementById class) (focus)))
-
-(defn reset-focus [event]
-  (js/setTimeout (partial focus "inputField")  10))
 
 (def app-state (atom {:article [ {:tag :h1 :text "Welcome to Stratus"}
                                  {:tag :p  :text "Hello, world!"}
@@ -19,16 +14,24 @@
                       :input   { :input-class "inputField"
                                  :on-change   i/handle-text-input
                                  :on-key-down i/handle-special-input
-                                 :on-blur     reset-focus } } ))
+                                 :on-blur     reset-focus }
+                      :cursor  { :row    0
+                                 :column 0
+                                 :line-length 1
+                                 :number-of-lines 1 } } ))
 (def states (atom [@app-state]))
 
 (om/root c/article app-state
          {:target (. js/document (getElementById "stratus"))})
 (om/root c/input   app-state
          {:target (. js/document (getElementById "input"))})
+(om/root c/cursor  app-state
+         {:target (. js/document (getElementById "cursorContainer"))})
+(om/root c/manu    app-state
+         {:target (. js/document (getElementById "menuContainer"))})
 
-(focus "inputField")
+(u/focus "inputField")
 
 (.. js/document
     (addEventListener "click"
-                      #(reset-focus "inputField")))
+                      (partial u/reset-focus "inputField")))
