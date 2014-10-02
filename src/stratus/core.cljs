@@ -8,29 +8,17 @@
 
 (enable-console-print!)
 
-(def app-state (atom {:article [ {:tag :h1 :text "Welcome to Stratus"}
-                                 {:tag :p  :text "Hello, world!"}
-                                 {:tag :p  :text "This is a new Paragraph."} ]
-                      :input   { :input-class "inputField"
-                                 :on-change   i/handle-text-input
-                                 :on-key-down i/handle-special-input
-                                 :on-blur     reset-focus }
-                      :cursor  { :row    0
-                                 :column 0
-                                 :line-length 1
-                                 :number-of-lines 1 } } ))
-(def states (atom [@app-state]))
+(def app-state (atom {:article [ {:tag :h1 :text "Welcome to Stratys!"}
+                                 {:tab :p  :text "Begin typing and write whatevery you want." } ] }))
+
+(def article-history (atom [@app-state]))
 
 (om/root c/article app-state
-         {:target (. js/document (getElementById "stratus"))})
-(om/root c/input   app-state
-         {:target (. js/document (getElementById "input"))})
-(om/root c/cursor  app-state
-         {:target (. js/document (getElementById "cursorContainer"))})
-(om/root c/manu    app-state
-         {:target (. js/document (getElementById "menuContainer"))})
+         {:target (. js/document (getElementById "stratusContainer"))})
 
-(u/focus "inputField")
+(om/root c/input   app-state
+         {:target (. js/document (getElementById "inputContainer"))})
+;(u/focus "inputField")
 
 (.. js/document
     (addEventListener "click"
