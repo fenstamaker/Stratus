@@ -4,7 +4,7 @@
             [om-tools.core :refer-macros [defcomponent]]
             [stratus.components :as c]
             [stratus.input :as i]
-            [stratus.utility :as u]))
+            [stratus.utility :refer :all]))
 
 (enable-console-print!)
 
@@ -18,8 +18,7 @@
 
 (om/root c/input   app-state
          {:target (. js/document (getElementById "inputContainer"))})
-;(u/focus "inputField")
 
 (.. js/document
     (addEventListener "click"
-                      (partial u/reset-focus "inputField")))
+                      (partial reset-focus "inputField")))

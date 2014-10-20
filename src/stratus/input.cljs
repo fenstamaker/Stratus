@@ -60,5 +60,5 @@
                    (str (.. event -target -value)))]
     (om/transact! app-state [:article] #(replace-last % {:tag (:tag last-p) :text new-p}))
     (om/set-state! owner :text "")))
-
+  
 
